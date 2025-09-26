@@ -1,24 +1,31 @@
-version: "3.9"
+version: "3.8"
+
 services:
   mongo:
-    image: mongo:6
+    image: mongo:latest
     container_name: mongo
-    restart: always
     ports:
       - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo-data:/data/db
 
   backend:
     build: ./backend
-    command: npm run dev
-    volumes:
-      - ./backend:/app
+    container_name: backend
     ports:
       - "5000:5000"
     environment:
-      - PORT=5000
-      - MONGO_URI=mongodb://root:example@mongo:27017/mern_app?authSource=admin
+      - MONGO_URI=mongodb://mongo:27017/mern
     depends_on:
       - mongo
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
