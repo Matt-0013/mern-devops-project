@@ -14,12 +14,14 @@ spec:
     spec:
       containers:
         - name: backend
-          image: YOUR_DOCKER_USERNAME/mern-backend:latest
+          image: matt013/mern-backend:latest
           ports:
             - containerPort: 5000
           env:
             - name: MONGO_URI
-              value: mongodb://mongo:27017/mern
+              value: "mongodb://mongo:27017/mern"
+            - name: PORT
+              value: "5000"
 ---
 apiVersion: v1
 kind: Service
@@ -29,6 +31,7 @@ spec:
   selector:
     app: backend
   ports:
-    - port: 5000
-      targetPort: 5000
-  type: ClusterIP
+    - port: 5000       # service port inside cluster
+      targetPort: 5000 # container port
+      nodePort: 30081  # fixed external NodePort
+  type: NodePort

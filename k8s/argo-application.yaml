@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mern-app
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: 'https://github.com/Matt-0013/mern-devops-project.git'
+    targetRevision: main
+    path: k8s   # location of your manifests inside repo
+
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: mern-app
+
+  syncPolicy:
+    automated:
+      prune: true       # remove old resources if not in Git
+      selfHeal: true    # auto-fix if drift happens
