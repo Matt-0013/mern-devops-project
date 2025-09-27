@@ -10,22 +10,24 @@ function App() {
     fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
-    const res = await axios.get("http://localhost:5000/api/users");
-    setUsers(res.data);
-  };
+const fetchUsers = async () => {
+  const res = await axios.get("http://127.0.0.1:5000/api/users");
+  setUsers(res.data);
+};
 
-  const addUser = async (e) => {
-    e.preventDefault();
-    await axios.post("http://localhost:5000/api/users", form);
-    setForm({ name: "", email: "", age: "" });
-    fetchUsers();
-  };
+const addUser = async (e) => {
+  e.preventDefault();
+  await axios.post("http://127.0.0.1:5000/api/users", form);
+  setForm({ name: "", email: "", age: "" });
+  fetchUsers();
+};
 
-  const deleteUser = async (id) => {
-    await axios.delete(`http://localhost:5000/api/users/${id}`);
-    fetchUsers();
-  };
+const deleteUser = async (id) => {
+  await axios.delete(`http://127.0.0.1:5000/api/users/${id}`);
+  fetchUsers();
+};
+
+
 
   return (
     <div style={{ padding: "20px" }}>
