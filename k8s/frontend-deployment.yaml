@@ -17,9 +17,6 @@ spec:
           image: matt013/mern-frontend:latest
           ports:
             - containerPort: 80
-          env:
-            - name: REACT_APP_API_URL
-              value: "http://192.168.49.2:30081"
 ---
 apiVersion: v1
 kind: Service
@@ -31,4 +28,5 @@ spec:
   ports:
     - port: 80
       targetPort: 80
+      nodePort: 30080
   type: NodePort

@@ -11,23 +11,21 @@ function App() {
   }, []);
 
 const fetchUsers = async () => {
-  const res = await axios.get("http://127.0.0.1:5000/api/users");
+  const res = await axios.get(`${process.env.REACT_APP_API_URL}/users`); 
   setUsers(res.data);
 };
 
 const addUser = async (e) => {
   e.preventDefault();
-  await axios.post("http://127.0.0.1:5000/api/users", form);
+  await axios.post(`${process.env.REACT_APP_API_URL}/users`, form); 
   setForm({ name: "", email: "", age: "" });
   fetchUsers();
 };
 
 const deleteUser = async (id) => {
-  await axios.delete(`http://127.0.0.1:5000/api/users/${id}`);
+  await axios.delete(`${process.env.REACT_APP_API_URL}/users/${id}`);
   fetchUsers();
 };
-
-
 
   return (
     <div style={{ padding: "20px" }}>
