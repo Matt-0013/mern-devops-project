@@ -15,8 +15,12 @@ spec:
       containers:
         - name: frontend
           image: matt013/mern-frontend:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 80
+          env:
+            - name: REACT_APP_API_URL
+              value: "http://backend:5000/api"  # <--- add this
 ---
 apiVersion: v1
 kind: Service

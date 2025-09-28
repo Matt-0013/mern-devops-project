@@ -33,5 +33,4 @@ spec:
   ports:
     - port: 5000       # service port inside cluster
       targetPort: 5000 # container port
-      nodePort: 30081  # fixed external NodePort
-  type: ClusterIP
+  type: ClusterIP      # frontend can reach backend via "backend:5000"
